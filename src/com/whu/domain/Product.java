@@ -1,7 +1,7 @@
 package com.whu.domain;
 
 public class Product {
-    private String pdi;
+    private String pid;
     private String pname;
     private double market_price;
     private double shop_price;
@@ -15,7 +15,7 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "pdi='" + pdi + '\'' +
+                "pid='" + pid + '\'' +
                 ", pname='" + pname + '\'' +
                 ", market_price=" + market_price +
                 ", shop_price=" + shop_price +
@@ -28,12 +28,12 @@ public class Product {
                 '}';
     }
 
-    public String getPdi() {
-        return pdi;
+    public String getPid() {
+        return pid;
     }
 
-    public void setPdi(String pdi) {
-        this.pdi = pdi;
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getPname() {

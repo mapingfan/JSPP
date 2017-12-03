@@ -48,5 +48,7 @@
     <orderEntry type="library" name="taglibs-standard-jstlel-1.2.5" level="project" />
     <orderEntry type="library" name="jstl" level="project" />
     <orderEntry type="library" name="standard" level="project" />
+    <orderEntry type="library" name="commons-beanutils-1.8.3" level="project" />
+    <orderEntry type="library" name="commons-logging-1.1.1" level="project" />
   </component>
 </module>
