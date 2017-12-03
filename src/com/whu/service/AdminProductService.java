@@ -3,6 +3,7 @@ package com.whu.service;
 import com.whu.dao.AdminProductDao;
 import com.whu.domain.Category;
 import com.whu.domain.Product;
+import com.whu.vo.Condition;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -45,5 +46,11 @@ public class AdminProductService {
     public void updateProduct(Product product) throws SQLException {
         AdminProductDao dao = new AdminProductDao();
         dao.updateProduct(product);
+    }
+
+    public List<Product> findProductByCondition(Condition condition) throws SQLException {
+        AdminProductDao dao = new AdminProductDao();
+        List<Product>productList = dao.findProductByCondition(condition);
+        return productList;
     }
 }

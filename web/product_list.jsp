@@ -39,7 +39,7 @@
             <li><a href="#">首页</a></li>
         </ol>
     </div>
-    <c:forEach items="${productList}" var="product">
+    <c:forEach items="${pageBean.productList}" var="product">
     <div class="col-md-2" style="height: 250px">
         <a href="product_info.htm"> <img src="${product.pimage}" width="170" height="170" style="display: inline-block;"> </a>
         <p>
@@ -62,7 +62,18 @@
 <!--分页 -->
 <div style="width: 380px; margin: 0 auto; margin-top: 50px;">
     <ul class="pagination" style="text-align: center; margin-top: 10px;">
-        <li class="disabled"><a href="#" aria-label="Previous"><span
+        <li><a href="${pageContext.request.contextPath}/productList?currentPage=1" aria-label="Previous"><span
+                aria-hidden="true">&laquo;</span></a></li>
+        <c:forEach begin="1" end="${pageBean.totalPage}" var ="page">
+            <li class="${pageBean.currentPage==page?'active':''}"><a href="${pageContext.request.contextPath}/productList?currentPage=${page}">${page}</a></li>
+        </c:forEach>
+        <li><a href="${pageContext.request.contextPath}/productList?currentPage=${pageBean.totalPage}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+        </a></li>
+        <%--<c:forEach items="${pageBean.totalPage}" var="item" varStatus="i">
+            <li><a href="#">${i+1}</a></li>
+        </c:forEach>--%>
+
+        <%--<li class="disabled"><a href="#" aria-label="Previous"><span
                 aria-hidden="true">&laquo;</span></a></li>
         <li class="active"><a href="#">1</a></li>
         <li><a href="#">2</a></li>
@@ -74,7 +85,7 @@
         <li><a href="#">8</a></li>
         <li><a href="#">9</a></li>
         <li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-        </a></li>
+        </a></li>--%>
     </ul>
 </div>
 <!-- 分页结束 -->

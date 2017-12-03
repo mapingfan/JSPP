@@ -3,11 +3,13 @@ package com.whu.dao;
 import com.whu.domain.Category;
 import com.whu.domain.Product;
 import com.whu.utils.DataSourceUtils;
+import com.whu.vo.Condition;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminProductDao {
@@ -63,5 +65,27 @@ public class AdminProductDao {
                 product.getMarket_price(), product.getShop_price(),
                 product.getPimage(), product.getPdate(),
                 product.getIs_hot(), product.getPdesc(), product.getPflag(), product.getCid(), product.getPid());
+    }
+
+    public List<Product> findProductByCondition(Condition condition) throws SQLException {
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "select * from product where 1=1";
+        List<String> conditionList = new ArrayList<>();
+        if (condition != null) {
+            if (condition.getPname() != null && condition.getPname().trim().length() != 0) {
+                sql += " and pname like ? ";
+                conditionList.add("%" + condition.getPname().trim() + "%");
+            }
+            if (condition.getIs_hot() != null && condition.getIs_hot().trim().length() != 0) {
+                sql += " and is_hot = ? ";
+                conditionList.add(condition.getIs_hot());
+            }
+            if (condition.getCid() != null && condition.getCid().trim().length() != 0) {
+                sql += " and cid = ? ";
+                conditionList.add(condition.getCid());
+            }
+        }
+        List<Product> productList = runner.query(sql, new BeanListHandler<>(Product.class), conditionList.toArray());
+        return productList;
     }
 }

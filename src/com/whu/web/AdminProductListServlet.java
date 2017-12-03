@@ -1,5 +1,6 @@
 package com.whu.web;
 
+import com.whu.domain.Category;
 import com.whu.domain.Product;
 import com.whu.service.AdminProductService;
 
@@ -16,13 +17,20 @@ import java.util.List;
 public class AdminProductListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        传递请求;
-        AdminProductService adminProductService = new AdminProductService();
+        AdminProductService service = new AdminProductService();
         List<Product> productList = null;
         try {
-            productList = adminProductService.findAllProduct();
+            productList = service.findAllProduct();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        List<Category> categoryList = null;
+        try {
+            categoryList = service.findAllCategory();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        request.setAttribute("categoryList", categoryList);
         request.setAttribute("productlist", productList);
         request.getRequestDispatcher("/admin/product/list.jsp").forward(request, response);
 
