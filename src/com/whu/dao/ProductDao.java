@@ -33,4 +33,11 @@ public class ProductDao {
         List<Product> productList = queryRunner.query(sql, new BeanListHandler<>(Product.class), (currentPage - 1) * currentCount, currentCount);
         return productList;
     }
+
+    public List<Product> findProductByWord(String word) throws SQLException {
+        QueryRunner runner = new QueryRunner(DataSourceUtils.getDataSource());
+        String sql = "select * from product where pname like ? limit 0 ,8 ";
+        List<Product> productList = runner.query(sql, new BeanListHandler<>(Product.class), "%" + word + "%");
+        return productList;
+    }
 }

@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<script src="js/jquery-1.8.3.min.js"></script>
 <!-- 登录 注册 购物车... -->
 <div class="container-fluid">
 	<div class="col-md-4">
@@ -46,11 +47,48 @@
 					<li><a href="#">电脑办公</a></li>
 				</ul>
 				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+					<div class="form-group" style="position: relative">
+						<input id="search" type="text" class="form-control" placeholder="Search" onkeyup="searchWord(this)">
+					</div>
+					<div id="showdiv" style="width: 173px; background:white; border: 1px solid #fff; position: absolute;z-index: 1000">
+
 					</div>
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
+
+                <script>
+                    <%--完成异步搜索--%>
+                    function searchWord(obj) {
+//                        获得输入框的值
+                        var word = obj.value;
+                        var content = "";
+                        $.get(
+                            "${pageContext.request.contextPath}/searchWord",
+                            {"word":word},
+                            function (data) {
+                                for (var i=0;i<data.length;i++) {
+                                    content +="<div onclick='clickFun(this)'  onmouseover='overFun(this)' onmouseout='outFun(this)' style='padding: 5px; cursor: pointer'>"+data[i].pname+"</div>"
+                                }
+                                $("#showdiv").html(content);
+                            },
+                            "json"
+                        );
+//
+                    }
+                    function overFun(obj) {
+                        $(obj).css("backgroundColor", "red");
+                    }
+                    function outFun(obj) {
+                        $(obj).css("backgroundColor", "white");
+                    }
+
+                    function clickFun(obj) {
+                        $("#search").val($(obj).html());
+                        $("#showdiv").css("display", "none");
+
+                    }
+
+                </script>
 			</div>
 		</div>
 	</nav>

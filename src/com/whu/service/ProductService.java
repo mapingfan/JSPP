@@ -28,4 +28,10 @@ public class ProductService {
         pageBean.setProductList(products);
         return pageBean;
     }
+
+    public List<Product> findProductByWord(String word) throws SQLException {
+        ProductDao dao = new ProductDao();
+        List<Product> productList = dao.findProductByWord(word);
+        return productList;
+    }
 }

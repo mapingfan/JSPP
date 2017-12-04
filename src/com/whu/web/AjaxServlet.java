@@ -10,16 +10,16 @@ import java.io.IOException;
 @WebServlet(name = "Servlet8", urlPatterns = {"/ajaxServlet"})
 public class AjaxServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        String name = request.getParameter("name");
         response.setContentType("text/html;charset=utf-8");
         response.setCharacterEncoding("utf-8");
-        response.getWriter().write("hhh长");
-        response.getWriter().write((Math.random() + ""));
-
+        if (name.equals("张三")) {
+            response.getWriter().write("{\"success\":\"可以注册\"}");
+            return;
+        } else {
+            response.getWriter().write("{\"success\":\"不可以注册\"}");
+            return;
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
