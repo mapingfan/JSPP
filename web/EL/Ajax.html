@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>异步访问</title>
+    <script>
+    //1.创建Ajax引擎
+    //2.绑定监听
+    function fun() {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState==4&&xmlHttp.status==200) {
+                var res = xmlHttp.responseText;
+                document.getElementById("myspan").innerHTML = res;
+            }
+        };
+        xmlHttp.open("GET", "/ajaxServlet", true);
+        xmlHttp.send();
+    }
+
+    function fun2() {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function () {
+            if (xmlHttp.readyState==4&&xmlHttp.status==200) {
+                var res = xmlHttp.responseText;
+                document.getElementById("myspan").innerHTML = res;
+            }
+        };
+        xmlHttp.open("GET", "/ajaxServlet", false);
+        xmlHttp.send();
+    }
+    </script>
+</head>
+<body>
+    <input type="button" value="异步请求" onclick="fun()">
+    <input type="button" value="同步请求" onclick="fun2()">
+    <input type="button" value="测试" onclick="alert()">
+    <br>
+    <span id="myspan"></span>
+</body>
+</html>
