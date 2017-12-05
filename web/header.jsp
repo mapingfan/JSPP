@@ -13,11 +13,14 @@
 	</div>
 	<div class="col-md-3" style="padding-top:20px">
 		<ol class="list-inline">
-			<a:if test="${empty user}">
-
+			<a:if test="${!empty user }">
+				<li><a href="#">${user.username}</a></li>
+				<li><a href="#">退出</a></li>
 			</a:if>
-			<li><a href="login.jsp">登录</a></li>
-			<li><a href="register.jsp">注册</a></li>
+			<a:if test="${empty user }">
+				<li><a href="login.jsp">登录</a></li>
+				<li><a href="register.jsp">注册</a></li>
+			</a:if>
 			<li><a href="cart.jsp">购物车</a></li>
 			<li><a href="order_list.jsp">我的订单</a></li>
 		</ol>
